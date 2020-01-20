@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="3.2.0" />
+    <PackageReference Include="App.Metrics.AspNetCore.Tracking" Version="3.2.0" />
     <PackageReference Include="App.Metrics.Extensions.Reporting.InfluxDB" Version="1.2.0" />
     <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="3.2.0" />
   </ItemGroup>

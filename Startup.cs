@@ -59,13 +59,14 @@ namespace metricssample
                         options.FlushInterval = TimeSpan.FromSeconds(20);
                     })
                 .Build();
+            
 
-            services.AddMetrics(metrics);
+            services.AddMetrics(metrics);            
+            services.AddMetricsTrackingMiddleware();
             services.AddMetricsReportingHostedService();
             services.AddMvcCore().AddMetricsCore();
             services.AddControllersWithViews();            
-            services.AddMetricsTrackingMiddleware();
-            services.AddMvc().AddMetrics();
+           
             services.Configure<IISServerOptions>(options =>
             {
                 options.AllowSynchronousIO = true;
@@ -77,6 +78,12 @@ namespace metricssample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMetricsApdexTrackingMiddleware();
+            app.UseMetricsRequestTrackingMiddleware();
+            app.UseMetricsErrorTrackingMiddleware();
+            app.UseMetricsActiveRequestMiddleware();
+            app.UseMetricsPostAndPutSizeTrackingMiddleware();
+            
             app.UseMetricsAllMiddleware();
 
             if (env.IsDevelopment())
